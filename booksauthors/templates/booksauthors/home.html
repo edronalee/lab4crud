@@ -1,0 +1,146 @@
+{% extends 'booksauthors/base.html' %}
+{% load static %}
+{% block content %}
+
+<img src="{% static '/images/library.png' %}" alt="">
+<div class="container"> 
+    <h1> Authors </h1>
+    <a href="{% url 'addauthor' %}" class="btn btn-warning">
+        <i class="fas fa-plus"></i>
+        Add Author
+    </a>
+    <br>
+    <strong> Total No. of Authors: </strong> {{authors|length}}
+    <br>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr class = "text-center">
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Country</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+            <tr class = "text-center">
+                <td>{{author.first_name}}</td>
+                <td>{{author.last_name}}</td>
+                <td>{{author.country_of_origin}}</td>
+                <td>
+                    <a href="{% url 'updateauthor' author.id %}" class="btn btn-outline-dark">
+                        <i class="fas fa-edit"></i>
+                        Update Author
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#delete_author_{{author.id}}">
+                        <i class="fas fa-trash"></i>
+                        Delete Author
+                    </button>
+
+                    <div class="modal fade" id="delete_author_{{author.id}}" tabindex="-1" area-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Author Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{author.first_name}} {{author.last_name}}?
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'deleteauthor' author.id %}" class="btn btn-outline-success">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                        <i class="fas fa-ban"></i> Cancel
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="container"> 
+    <h1> Books </h1>
+    <a href="{% url 'addbook' %}" class="btn btn-warning">
+        <i class="fas fa-plus"></i>
+        Add Book
+    </a>
+    <br>
+    <strong> Total No. of Books: </strong> {{books|length}}
+    <br>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr class = "text-center">
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col"># of Pages</th>
+                <th scope="col">Language</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr class = "text-center">
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.category}}</td>
+                <td>{{book.price}}</td>
+                <td>{{book.number_of_pages}}</td>
+                <td>{{book.language}}</td> 
+                <td>
+                    <a href="{% url 'updatebook' book.id %}" class="btn btn-outline-dark">
+                        <i class="fas fa-edit"></i>
+                        Update Book
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#delete_book_{{book.id}}">
+                        <i class="fas fa-trash"></i>
+                        Delete book
+                    </button>
+
+                    <div class="modal fade" id="delete_book_{{book.id}}" tabindex="-1" area-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Book Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete {{book.title}}?
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'deletebook' book.id %}" class="btn btn-outline-success">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                        <i class="fas fa-ban"></i> Cancel
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

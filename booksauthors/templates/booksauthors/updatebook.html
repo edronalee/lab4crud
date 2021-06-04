@@ -1,0 +1,32 @@
+{% extends 'booksauthors/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<img src="{% static '/images/book.png' %}" alt="">
+<div class="container">
+
+    <div class="card text-white bg-secondary">
+        <div class="card-header">
+            Update Book Form
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                <!-- input fields insert -->
+                {% csrf_token %}
+                {{bookform|crispy}}
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-edit"></i>
+                    Update Book
+                </button>
+
+                <a href="{%url 'home'%}" class="btn btn-danger">
+                    <i class="fas fa-ban"></i>
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock content %}
